@@ -15,9 +15,17 @@ class PersonasFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
+{
+    return [
+        'primernombre' => $this->faker->firstName(),
+        'segundonombre' => $this->faker->firstName(),
+        'primerapellido' => $this->faker->lastName(),
+        'segundoapellido' => $this->faker->lastName(),
+        'fechacreacion' => $this->faker->dateTimeBetween('-1 year', 'now'),
+        'fechamodificacion' => $this->faker->dateTimeBetween('-1 year', 'now'),
+        'usuariocreacion' => $this->faker->userName(),
+        'usuariomodificacion' => $this->faker->userName(),
+    ];
+}
+
 }

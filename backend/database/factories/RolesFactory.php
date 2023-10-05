@@ -17,7 +17,11 @@ class RolesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'rol' => $this->faker->word, 
+            'fechacreacion' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'fechamodificacion' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'usuariocreacion' => $this->faker->userName,
+            'usuariomodificacion' => $this->faker->userName,
         ];
     }
 }

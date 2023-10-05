@@ -12,15 +12,25 @@ class EnlacesController extends Controller
      */
     public function index()
     {
-        //
+        $enlaces = new Enlaces();
+        return $enlaces->all();
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $enlaces = new Enlaces();
+        $enlaces->idpagina = $request->idpagina;
+        $enlaces->idrol = $request->idrol;
+        $enlaces->descripcion = $request->descripcion;
+        $enlaces->fechacreacion = $request->fechacreacion;
+        $enlaces->fechamodificacion = $request->fechamodificacion;
+        $enlaces->usuariocreacion = $request->usuariocreacion;
+        $enlaces->usuariomodificacion = $request->usuariomodificacion;
+        $enlaces->save();
+        return $enlaces;
     }
 
     /**
@@ -34,9 +44,10 @@ class EnlacesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Enlaces $enlaces)
+    public function show($id)
     {
-        //
+        $enlaces = new Enlaces();
+        return $enlaces->find($id);
     }
 
     /**
@@ -50,16 +61,27 @@ class EnlacesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Enlaces $enlaces)
+    public function update($id , Request $request)
     {
-        //
+        $enlaces= Enlaces::find($id);
+        $enlaces->idpagina = $request->idpagina;
+        $enlaces->idrol = $request->idrol;
+        $enlaces->descripcion = $request->descripcion;
+        $enlaces->fechacreacion = $request->fechacreacion;
+        $enlaces->fechamodificacion = $request->fechamodificacion;
+        $enlaces->usuariocreacion = $request->usuariocreacion;
+        $enlaces->usuariomodificacion = $request->usuariomodificacion;
+        $enlaces->save();
+        return $enlaces;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Enlaces $enlaces)
+    public function destroy($id)
     {
-        //
+        $enlaces = Enlaces::find($id);
+        $enlaces->delete();
+        return $enlaces; 
     }
 }

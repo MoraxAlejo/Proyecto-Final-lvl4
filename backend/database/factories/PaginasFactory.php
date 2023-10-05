@@ -17,7 +17,16 @@ class PaginasFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'fechacreacion' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'fechamodificacion' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'usuariocreacion' => $this->faker->userName,
+            'usuariomodificacion' => $this->faker->userName,
+            'url' => $this->faker->url,
+            'estado' => $this->faker->randomElement(['activo', 'inactivo']),
+            'nombre' => $this->faker->word,
+            'descripcion' => $this->faker->sentence,
+            'icono' => $this->faker->word,
+            'tipo' => $this->faker->randomElement(['pagina', 'subpagina']),
         ];
     }
 }

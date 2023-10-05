@@ -12,15 +12,26 @@ class PersonasController extends Controller
      */
     public function index()
     {
-        //
+        $personas = new Personas();
+        return $personas->all();
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $personas = new Personas();
+        $personas->primernombre = $request->primernombre;
+        $personas->segundonombre = $request->segundonombre;
+        $personas->primerapellido = $request->primerapellido;
+        $personas->segundoapellido = $request->segundoapellido;
+        $personas->fechacreacion = $request->fechacreacion;
+        $personas->fechamodificacion = $request->fechamodificacion;
+        $personas->usuariocreacion = $request->usuariocreacion;
+        $personas->usuariomodificacion = $request->usuariomodificacion;
+        $personas->save();
+        return $personas;
     }
 
     /**
@@ -34,9 +45,10 @@ class PersonasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Personas $personas)
+    public function show($idpersona)
     {
-        //
+        $personas = new Personas();
+        return $personas->find($idpersona);
     }
 
     /**
@@ -50,16 +62,29 @@ class PersonasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Personas $personas)
+    public function update($id , Request $request)
     {
-        //
+        $personas= Personas::find($id);
+        $personas->primernombre = $request->primernombre;
+        $personas->segundonombre = $request->segundonombre;
+        $personas->primerapellido = $request->primerapellido;
+        $personas->segundoapellido = $request->segundoapellido;
+        $personas->fechacreacion = $request->fechacreacion;
+        $personas->fechamodificacion = $request->fechamodificacion;
+        $personas->usuariocreacion = $request->usuariocreacion;
+        $personas->usuariomodificacion = $request->usuariomodificacion;
+        $personas->save();
+        return $personas;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Personas $personas)
+    public function destroy($id)
     {
-        //
+        $personas = Personas::find($id);
+        $personas->delete();
+        return $personas; 
+
     }
 }

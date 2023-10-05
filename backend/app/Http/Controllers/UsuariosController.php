@@ -12,15 +12,28 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = new Usuarios();
+        return $usuarios->all();
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $usuarios = new Usuarios();
+        $usuarios->idpersona = $request->idpersona;
+        $usuarios->usuario = $request->usuario;
+        $usuarios->clave = $request->clave;
+        $usuarios->habilitado = $request->habilitado;
+        $usuarios->fecha = $request->fecha;
+        $usuarios->idrol = $request->idrol;
+        $usuarios->fechacreacion = $request->fechacreacion;
+        $usuarios->fechamodificacion = $request->fechamodificacion;
+        $usuarios->usuariocreacion = $request->usuariocreacion;
+        $usuarios->usuariomodificacion = $request->usuariomodificacion;
+        $usuarios->save();
+        return $usuarios;
     }
 
     /**
@@ -34,9 +47,10 @@ class UsuariosController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Usuarios $usuarios)
+    public function show($id)
     {
-        //
+        $usuarios = new Usuarios();
+        return $usuarios->find($id);
     }
 
     /**
@@ -50,16 +64,30 @@ class UsuariosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update($id , Request $request)
     {
-        //
+        $usuarios= Usuarios::find($id);
+        $usuarios->idpersona = $request->idpersona;
+        $usuarios->usuario = $request->usuario;
+        $usuarios->clave = $request->clave;
+        $usuarios->habilitado = $request->habilitado;
+        $usuarios->fecha = $request->fecha;
+        $usuarios->idrol = $request->idrol;
+        $usuarios->fechacreacion = $request->fechacreacion;
+        $usuarios->fechamodificacion = $request->fechamodificacion;
+        $usuarios->usuariocreacion = $request->usuariocreacion;
+        $usuarios->usuariomodificacion = $request->usuariomodificacion;
+        $usuarios->save();
+        return $usuarios;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuarios $usuarios)
+    public function destroy($id)
     {
-        //
+        $usuarios = Usuarios::find($id);
+        $usuarios->delete();
+        return $usuarios; 
     }
 }

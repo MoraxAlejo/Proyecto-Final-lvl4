@@ -12,7 +12,8 @@ class BitacorasController extends Controller
      */
     public function index()
     {
-        //
+        $bitacoras = new Bitacoras();
+        return $bitacoras->all();
     }
 
     /**

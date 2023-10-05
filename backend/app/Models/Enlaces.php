@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Enlaces extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'idenlace';
 }

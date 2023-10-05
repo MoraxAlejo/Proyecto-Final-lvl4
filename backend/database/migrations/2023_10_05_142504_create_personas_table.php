@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->id('idpersona');
             $table->string('primernombre');
-            $table->string('segundonombre');
+            $table->string('segundonombre')->nullable();
             $table->string('primerapellido');
-            $table->string('segundoapellido');
-            $table->string('fechacreacion');
-            $table->string('frechamodificacion');
+            $table->string('segundoapellido')->nullable();
+            $table->dateTime('fechacreacion');
+            $table->dateTime('fechamodificacion')->nullable();
             $table->string('usuariocreacion');
-            $table->string('usuariomodificacion');
+            $table->string('usuariomodificacion')->nullable();
             $table->timestamps();
         });
     }
