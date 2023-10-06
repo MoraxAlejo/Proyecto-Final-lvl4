@@ -19,9 +19,19 @@ class BitacorasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $bitacoras = new Bitacoras();
+        $bitacoras->bitacora = $request->bitacora;
+        $bitacoras->idusuario = $request->idusuario;
+        $bitacoras->fecha = $request->fecha;
+        $bitacoras->hora = $request->hora;
+        $bitacoras->ip = $request->ip;
+        $bitacoras->so = $request->so;
+        $bitacoras->navegador = $request->navegador;
+        $bitacoras->usuario = $request->usuario;
+        $bitacoras->save();
+        return $bitacoras;
     }
 
     /**
@@ -35,9 +45,10 @@ class BitacorasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bitacoras $bitacoras)
+    public function show($id)
     {
-        //
+        $bitacoras = new Bitacoras();
+        return $bitacoras->find($id);
     }
 
     /**
@@ -51,16 +62,28 @@ class BitacorasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Bitacoras $bitacoras)
+    public function update($id,Request $request)
     {
-        //
+        $bitacoras= Bitacoras::find($id);
+        $bitacoras->bitacora = $request->bitacora;
+        $bitacoras->idusuario = $request->idusuario;
+        $bitacoras->fecha = $request->fecha;
+        $bitacoras->hora = $request->hora;
+        $bitacoras->ip = $request->ip;
+        $bitacoras->so = $request->so;
+        $bitacoras->navegador = $request->navegador;
+        $bitacoras->usuario = $request->usario;
+        $bitacoras->save();
+        return $bitacoras;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bitacoras $bitacoras)
+    public function destroy($id)
     {
-        //
+        $bitacoras = Bitacoras::find($id);
+        $bitacoras->delete();
+        return $bitacoras; 
     }
 }

@@ -3,15 +3,14 @@ import { Link, } from "react-router-dom"
 import "../css/details.css"
 
 
-export default function Enlaces({ datos }) {
-    const [dataEnlaces, setDataEnlaces] = useState([]);
+export default function Bitacoras({ datos }) {
+    const [dataBitacoras, setDataBitacoras] = useState([]);
 
     useEffect(() => {
         if (datos && datos.length > 0) {
-            setDataEnlaces(datos);
+            setDataBitacoras(datos);
         }
     }, [datos]);
-
     const [isMenuOpen, setIsMenuOpen] = useState(true);
     const [isLinksOpen, setIsLinksOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(true);
@@ -124,33 +123,62 @@ export default function Enlaces({ datos }) {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                         <tr>
                             <th scope="col" className="px-6 py-3">
-                                ID Pagina
+                                Bitacora
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                ID Rol
+                                ID Usuario
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Descripcion
+                                Fecha
                             </th>
-                            
+                            <th scope="col" className="px-6 py-3">
+                                Hora
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                IP
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                SO
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Navegador
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Usuario
+                            </th>
                             <th scope="col" className="px-6 py-3">
                                 Acciones
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {dataEnlaces.map((el) => (
+                        {dataBitacoras.map((el) => (
 
 
-                            <tr key={el.idenlace} className="bg-white border-b hover:bg-gray-50">
+                            <tr key={el.idbitacora} className="bg-white border-b hover:bg-gray-50">
                                 <td className="px-6 py-4">
-                                    {el.idpagina}
+                                    {el.bitacora}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {el.idrol}
+                                    {el.idusuario}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {el.descripcion}
+                                    {el.fecha}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.hora}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.ip}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.so}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.navegador}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.usuario}
                                 </td>
 
                                 <td className="px-6 py-4">

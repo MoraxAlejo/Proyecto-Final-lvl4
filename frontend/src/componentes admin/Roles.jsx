@@ -3,15 +3,14 @@ import { Link, } from "react-router-dom"
 import "../css/details.css"
 
 
-export default function Enlaces({ datos }) {
-    const [dataEnlaces, setDataEnlaces] = useState([]);
+export default function Roles({ datos }) {
+    const [dataRoles, setDataRoles] = useState([]);
 
     useEffect(() => {
         if (datos && datos.length > 0) {
-            setDataEnlaces(datos);
+            setDataRoles(datos);
         }
     }, [datos]);
-
     const [isMenuOpen, setIsMenuOpen] = useState(true);
     const [isLinksOpen, setIsLinksOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(true);
@@ -124,44 +123,26 @@ export default function Enlaces({ datos }) {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-100">
                         <tr>
                             <th scope="col" className="px-6 py-3">
-                                ID Pagina
+                                ID
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                ID Rol
+                                Rol
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Descripcion
-                            </th>
-                            
-                            <th scope="col" className="px-6 py-3">
-                                Acciones
-                            </th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        {dataEnlaces.map((el) => (
+                        {dataRoles.map((el) => (
 
-
-                            <tr key={el.idenlace} className="bg-white border-b hover:bg-gray-50">
-                                <td className="px-6 py-4">
-                                    {el.idpagina}
-                                </td>
+                            <tr key={el.idrol} className="bg-white border-b hover:bg-gray-50">
                                 <td className="px-6 py-4">
                                     {el.idrol}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {el.descripcion}
+                                    {el.rol}
                                 </td>
 
-                                <td className="px-6 py-4">
-                                    <p className="p-[2px] w-[100px] rounded-lg text-white bg-green-800">Administrador</p>
-                                </td>
-                                <td className="flex items-center px-6 py-4 space-x-3">
-                                    <p className='flex bg-green-600 p-1 gap-4 rounded-md'>
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2UPwrCMBSHM3oAQephXFysOOlFegmnzp7FY+gipGu8ghScPmlJaAnmjzFjPugSXn5f3muIEJkBKuAOtLmzR4ALE23ukzfAArhqwc0u2gNP4uiB7Sxc6vWzlgydVLYgNvwNHL+EGxpXm4aD56uBpa5fAQ8rvAPWqYI6OdwSuMZySg4PCPrZD/WGmzqvIHAIaYVLc1uADfD6V+Aci+7Uvf9HQWfPPLg/RuCjCIKUEWUZUexz7UP5BMNrqUhHAbtwrwUx8QEo8BbR2puCUwAAAABJRU5ErkJggg==" />
-                                        <a href="#" className="font-medium text-white">Edit</a>
-                                    </p>
-                                </td>
+
                             </tr>
                         ))}
                     </tbody>
