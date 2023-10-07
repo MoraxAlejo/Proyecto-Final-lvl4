@@ -3,14 +3,14 @@ import { Link, } from "react-router-dom"
 import "../css/details.css"
 
 
-export default function Usuarios({datos}) {
+export default function Usuarios({ datos }) {
     const [dataUsuario, setDataUsuario] = useState([]);
 
-  useEffect(() => {
-    if (datos && datos.length > 0) {
-      setDataUsuario(datos);
-    }
-  }, [datos]);
+    useEffect(() => {
+        if (datos && datos.length > 0) {
+            setDataUsuario(datos);
+        }
+    }, [datos]);
     const [isMenuOpen, setIsMenuOpen] = useState(true);
     const [isLinksOpen, setIsLinksOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(true);
@@ -118,7 +118,7 @@ export default function Usuarios({datos}) {
                 </div>
             </div>
 
-            
+
 
             <div className="overflow-x-auto shadow-md sm:rounded-lg mt-20">
                 <table className="w-full text-sm text-left text-gray-500 ">
@@ -134,7 +134,7 @@ export default function Usuarios({datos}) {
                                 Usuario
                             </th>
                             <th scope="col" className="px-6 py-3">
-                               Habilitado
+                                Habilitado
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Rol
@@ -142,33 +142,41 @@ export default function Usuarios({datos}) {
                         </tr>
                     </thead>
                     <tbody>
-                    {dataUsuario.map((el) => (
-              
-            
-                        <tr key={el.id} className="bg-white border-b hover:bg-gray-50">
-                            <td className="px-6 py-4">
-                                {el.idusuario}
-                            </td>
-                            <td className="px-6 py-4">
-                                {el.idpersona}
-                            </td>
-                            <td className="px-6 py-4">
-                                {el.usuario}
-                            </td>
-                            <td className="px-6 py-4">
-                                {el.habilitado}
-                            </td>
-                            
-                            <td className="px-6 py-4">
-                                <p className="p-[2px] w-[100px] rounded-lg text-white bg-green-800">Administrador</p>
-                            </td>
-                            <td className="flex items-center px-6 py-4 space-x-3">
-                                <p className='flex bg-green-600 p-1 gap-4 rounded-md'>
-                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2UPwrCMBSHM3oAQephXFysOOlFegmnzp7FY+gipGu8ghScPmlJaAnmjzFjPugSXn5f3muIEJkBKuAOtLmzR4ALE23ukzfAArhqwc0u2gNP4uiB7Sxc6vWzlgydVLYgNvwNHL+EGxpXm4aD56uBpa5fAQ8rvAPWqYI6OdwSuMZySg4PCPrZD/WGmzqvIHAIaYVLc1uADfD6V+Aci+7Uvf9HQWfPPLg/RuCjCIKUEWUZUexz7UP5BMNrqUhHAbtwrwUx8QEo8BbR2puCUwAAAABJRU5ErkJggg==" />
-                                    <a href="#" className="font-medium text-white">Edit</a>
-                                </p>
-                            </td>
-                        </tr>
+                        {dataUsuario.map((el) => (
+
+
+                            <tr key={el.idusuario} className="bg-white border-b hover:bg-gray-50">
+                                <td className="px-6 py-4">
+                                    {el.idusuario}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.idpersona}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.usuario}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {el.habilitado}
+                                </td>
+
+                                <td className="px-6 py-4">
+                                    <p className="p-[2px] w-[100px] rounded-lg text-white bg-green-800">Administrador</p>
+                                </td>
+                                <td className="flex items-center px-6 py-4 space-x-3">
+                                    <p className='flex bg-green-600 p-1 gap-4 rounded-md'>
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2UPwrCMBSHM3oAQephXFysOOlFegmnzp7FY+gipGu8ghScPmlJaAnmjzFjPugSXn5f3muIEJkBKuAOtLmzR4ALE23ukzfAArhqwc0u2gNP4uiB7Sxc6vWzlgydVLYgNvwNHL+EGxpXm4aD56uBpa5fAQ8rvAPWqYI6OdwSuMZySg4PCPrZD/WGmzqvIHAIaYVLc1uADfD6V+Aci+7Uvf9HQWfPPLg/RuCjCIKUEWUZUexz7UP5BMNrqUhHAbtwrwUx8QEo8BbR2puCUwAAAABJRU5ErkJggg==" />
+                                        <Link to={`/edit/${el.idusuario}`} className="no-underline">
+                                            <p className="font-medium text-white">Edit</p>
+                                        </Link>
+
+                                    </p>
+                                    <p className='flex bg-red-600 p-1 gap-4 rounded-md'>
+                                        {/* icons */}
+                                        <a href="#" className="font-medium text-white">Eliminar</a>
+                                    </p>
+                                </td>
+
+                            </tr>
                         ))}
                     </tbody>
                 </table>

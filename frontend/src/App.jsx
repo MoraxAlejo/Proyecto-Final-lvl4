@@ -7,6 +7,7 @@ import Usuarios from "./componentes admin/Usuarios"
 import Roles from "./componentes admin/Roles"
 import Bitacoras from "./componentes admin/Bitacoras"
 import { useEffect, useState } from "react"
+import { EditUsuario } from "./componentes admin/EditUsuario"
 
 function App() {
   const [datos, setDatos] = useState();
@@ -71,6 +72,7 @@ function App() {
         <Route path="/usuarios" element={<Usuarios datos = {datos}/>} />
         <Route path="/roles" element={<Roles datos = {datosRoles}/>} />
         <Route path="/bitacoras" element={<Bitacoras datos = {datosBitacoras}/>} />
+        <Route path="/edit/:idusuario" element={<EditUsuario/>} />
       </Routes>
     </BrowserRouter>
   )
