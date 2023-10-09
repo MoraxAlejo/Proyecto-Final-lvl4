@@ -4,7 +4,7 @@ import "../css/details.css"
 import Nav from "./Nav"
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
-const endpoint = 'http://127.0.0.1:8000/api/usuarios/';
+const endpoint = 'http://127.0.0.1:8000/api/enlaces/';
 
 
 export default function Enlaces({ datos }) {
@@ -33,6 +33,10 @@ export default function Enlaces({ datos }) {
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Descripcion
+                            </th>
+
+                            <th scope="col" className="px-6 py-3">
+                                Rol
                             </th>
 
                             <th scope="col" className="px-6 py-3">
@@ -70,7 +74,7 @@ export default function Enlaces({ datos }) {
                 </table>
             </div>
 
-            <Link to={`/create`}>
+            <Link to={`/create enlace`}>
                 <a className="rounded-lg relative w-36 h-10 cursor-pointer flex items-center border border-green-500 bg-green-500 group hover:bg-green-500 active:bg-green-500 active:border-green-500" href="">
                     <span className="text-white font-semibold ml-8 transform group-hover:translate-x-20 transition-all duration-300">Agregar</span>
                     <span className="absolute right-0 h-full w-10 rounded-lg bg-green-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300">
@@ -87,32 +91,27 @@ export default function Enlaces({ datos }) {
 
 
 export const EditEnlace = () => {
-    const [usuario, setUsuario] = useState('');
-    const [clave, setClave] = useState('');
+    const [idpagina, setIdpagina] = useState('');
     const [idrol, setIdrol] = useState(0);
-    const [habilitado, setHabilitado] = useState('');
-    const [fecha, setFecha] = useState('');
+    const [descripcion, setDescripcion] = useState('');
     const [fechacreacion, setFechacreacion] = useState('');
     const [fechamodificacion, setFechamodificacion] = useState('');
     const [usuariocreacion, setUsuariocreacion] = useState('');
     const [usuariomodificacion, setUsuariomodificacion] = useState('');
-    const [idpersona, setIdpersona] = useState('');
     const [editSuccess, setEditSuccess] = useState(false);
     const [editError, setEditError] = useState(false);
     const navigate = useNavigate();
-    const { idusuario } = useParams();
+    const { idenlace } = useParams();
 
     const update = async (e) => {
         e.preventDefault();
 
         try {
-            await axios.put(`${endpoint}${idusuario}`, {
-                idpersona: idpersona,
-                usuario: usuario,
-                clave: clave,
-                habilitado: habilitado,
-                fecha: fecha,
+            await axios.put(`${endpoint}${idenlace}`, {
+                idenlace: idenlace,
+                idpagina: idpagina,
                 idrol: idrol,
+                descripcion: descripcion,
                 fechacreacion: fechacreacion,
                 fechamodificacion: fechamodificacion,
                 usuariocreacion: usuariocreacion,
@@ -122,7 +121,7 @@ export const EditEnlace = () => {
             setEditSuccess(true);
             setEditError(false);
 
-            navigate("/usuarios");
+            navigate("/enlaces");
         } catch (error) {
             console.error(error);
             setEditSuccess(false);
@@ -130,24 +129,19 @@ export const EditEnlace = () => {
         }
     }
 
-
     useEffect(() => {
         const getUsuarioById = async () => {
-            const response = await axios.get(`${endpoint}${idusuario}`);
-            setUsuario(response.data.usuario);
-            setClave(response.data.clave);
+            const response = await axios.get(`${endpoint}${idenlace}`);
+            setIdpagina(response.data.idpagina);
             setIdrol(response.data.idrol);
-            setHabilitado(response.data.habilitado);
-            setIdpersona(response.data.idpersona);
-            setFecha(response.data.fecha);
+            setDescripcion(response.data.descripcion);
+            setFechacreacion(response.data.fechacreacion);
             setFechamodificacion(response.data.fechamodificacion);
             setUsuariomodificacion(response.data.usuariomodificacion);
             setUsuariocreacion(response.data.usuariocreacion);
-            setFechacreacion(response.data.fechacreacion);
-
         }
         getUsuarioById();
-    }, [idusuario]);
+    }, [idenlace]);
 
 
     return (
@@ -170,47 +164,42 @@ export const EditEnlace = () => {
                 <form onSubmit={update} className="py-5 px-8">
                     <div className="w-full flex justify-between">
                         <section className="flex flex-col justify-center ">
-                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID enlace</label>
-                            <input value={idrol} onChange={(e) => setIdrol(e.target.value)} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
-                        </section>
-
-                        <section className="flex flex-col justify-center ">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID pagina</label>
-                            <input value={idusuario} readOnly type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input value={idpagina} onChange={(e) => setIdpagina(e.target.value)} type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
 
                         <section className="flex flex-col justify-center ">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID rol</label>
-                            <input value={idusuario} readOnly type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input value={idrol} onChange={(e) => setIdrol(e.target.value)} type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
                     </div>
 
                     <section className="flex flex-col justify-center">
                         <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Descripcion</label>
-                        <input value={usuario} onChange={(e) => setUsuario(e.target.value)} type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        <input value={descripcion} onChange={(e) => setDescripcion(e.target.value)} type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                     </section>
 
                     <div className="w-full flex justify-between">
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Fecha creacion</label>
-                            <input value={clave} onChange={(e) => setClave(e.target.value)} type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input value={fechacreacion} onChange={(e) => setFechacreacion(e.target.value)} type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
 
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">fecha modificacion</label>
-                            <input value={habilitado} onChange={(e) => setHabilitado(e.target.value)} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input value={fechamodificacion} onChange={(e) => setFechamodificacion(e.target.value)} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
                     </div>
 
                     <div className="w-full flex justify-between">
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Usuario creacion</label>
-                            <input value={clave} onChange={(e) => setClave(e.target.value)} type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input value={usuariocreacion} onChange={(e) => setUsuariocreacion(e.target.value)} type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
 
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Usuario modificacion</label>
-                            <input value={habilitado} onChange={(e) => setHabilitado(e.target.value)} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input value={usuariomodificacion} onChange={(e) => setUsuariomodificacion(e.target.value)} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
                     </div>
 
@@ -226,4 +215,53 @@ export const EditEnlace = () => {
         </div>
     )
 
+}
+
+
+export const CreateEnlace = () => {
+
+
+    return (
+        <div className="px-10 flex flex-col items-center gap-10 pb-10">
+            <Nav />
+
+            <main className="border border-gray-300 rounded-2xl w-[600px]">
+                <div className="flex py-5 justify-between items-center px-8">
+                    <h2 className=" text-2xl font-normal">Create enlace</h2>
+                    <Link to={"/enlaces"}>
+                        <button className="flex items-center duration-200 hover:scale-125 active:scale-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" className="stroke-blue-300">
+                                <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="1.5" d="M11 6L5 12M5 12L11 18M5 12H19"></path>
+                            </svg>
+                            Back
+                        </button>
+                    </Link>
+                </div>
+                <hr className="border border-gray-200 w-full" />
+                <form className="py-5 px-8">
+                    <div className="w-full flex justify-between">
+                        <section className="flex flex-col justify-center ">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID pagina</label>
+                            <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"/>
+
+                        </section>
+
+                        <section className="flex flex-col justify-center ">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID rol</label>
+                            <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"/>
+                        </section>
+
+                    </div>
+
+                    <section className="flex flex-col justify-center">
+                        <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Descripcion</label>
+                        <input type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                    </section>
+
+                    <button className="mt-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">Create</button>
+
+                </form>
+            </main>
+        </div>
+    )
 }

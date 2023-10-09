@@ -3,13 +3,14 @@ import { useEffect, useState } from "react"
 import Login from "./Login"
 import Dashboard from "./componentes user/Dashboard"
 import Edit from "./componentes user/Edit"
-import Enlaces, { EditEnlace } from "./componentes admin/Enlaces"
+import Enlaces, { CreateEnlace, EditEnlace } from "./componentes admin/Enlaces"
 import Usuarios from "./componentes admin/Usuarios"
-import Roles from "./componentes admin/Roles"
-import Bitacoras, { EditBitacora } from "./componentes admin/Bitacoras"
-import { EditUsuario } from "./componentes admin/Usuarios"
+import Roles, { CreateRoles } from "./componentes admin/Roles"
+import Bitacoras, { CreateUBitacora, EditBitacora } from "./componentes admin/Bitacoras"
+import { EditUsuario, CreateUsuario  } from "./componentes admin/Usuarios"
 import Parametros from "./componentes admin/Parametros"
-import Create from "./componentes admin/Create"
+
+
 
 function App() {
   const [datos, setDatos] = useState();
@@ -78,7 +79,10 @@ function App() {
         <Route path="/edit/:idusuario" element={<EditUsuario/>} />
         <Route path="/edit bitacoras/:idbitacora" element={<EditBitacora />} />
         <Route path="/edit enlace/:idenlace" element={<EditEnlace />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/create usuario" element={<CreateUsuario />} />
+        <Route path="/create roles" element={<CreateRoles />} />
+        <Route path="/create enlace" element={<CreateEnlace />} />
+        <Route path="/create bitacora" element={<CreateUBitacora />} />
       </Routes>
     </BrowserRouter>
   )

@@ -257,3 +257,83 @@ export const EditBitacora = () => {
     )
 
 }
+
+
+export const CreateUBitacora = () => {
+
+
+    return (
+        <div className="px-10 flex flex-col items-center gap-10 pb-10">
+            <Nav />
+
+            <main className="border border-gray-300 rounded-2xl w-[600px]">
+                <div className="flex py-5 justify-between items-center px-8">
+                    <h2 className=" text-2xl font-normal">Create bitacora</h2>
+                    <Link to={"/bitacoras"}>
+                        <button className="flex items-center duration-200 hover:scale-125 active:scale-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" className="stroke-blue-300">
+                                <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="1.5" d="M11 6L5 12M5 12L11 18M5 12H19"></path>
+                            </svg>
+                            Back
+                        </button>
+                    </Link>
+                </div>
+                <hr className="border border-gray-200 w-full" />
+                <form className="py-5 px-8">
+                    <div className="w-full flex justify-between">
+                        <section className="flex flex-col justify-center ">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID bitacora</label>
+                            <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+
+                        <section className="flex flex-col justify-center ">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID usuario</label>
+                            <input readOnly type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+                    </div>
+
+                    <section className="flex flex-col justify-center">
+                        <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Bitacora</label>
+                        <input  type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                    </section>
+
+                    <div className="w-full flex justify-between">
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
+                            <input type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Hora</label>
+                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+                    </div>
+
+                    <div className="w-full flex justify-between">
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">IP</label>
+                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">SO</label>
+                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+                    </div>
+
+                    <section className="flex flex-col justify-center">
+                        <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Navegador</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                    </section>
+
+                    <section className="flex flex-col justify-center">
+                        <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Usuario</label>
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                    </section>
+
+                    <button className="bg-blue-500 hover:bg-blue-600 py-2 px-5 rounded-md text-white my-5" type="submit">Save</button>
+                </form>
+            </main>
+        </div>
+    )
+}
