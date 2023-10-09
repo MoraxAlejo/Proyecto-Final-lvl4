@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
-import { Link, } from "react-router-dom"
 import "../css/details.css"
 import Nav from "./Nav"
+import { Link, } from "react-router-dom"
 
 
-export default function Roles({ datos }) {
-    const [dataRoles, setDataRoles] = useState([]);
+export default function Parametros() {
+    // const [dataRoles, setDataRoles] = useState([]);
 
-    useEffect(() => {
-        if (datos && datos.length > 0) {
-            setDataRoles(datos);
-        }
-    }, [datos]);
+    // useEffect(() => {
+    //     if (datos && datos.length > 0) {
+    //         setDataRoles(datos);
+    //     }
+    // }, [datos]);
+
+
 
     return (
         <div className="px-10 flex flex-col gap-5">
@@ -31,7 +32,7 @@ export default function Roles({ datos }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataRoles.map((el) => (
+                        {/* {dataRoles.map((el) => (
 
                             <tr key={el.idrol} className="bg-white border-b hover:bg-gray-50">
                                 <td className="px-6 py-4">
@@ -41,8 +42,9 @@ export default function Roles({ datos }) {
                                     {el.rol}
                                 </td>
 
+
                             </tr>
-                        ))}
+                        ))} */}
                     </tbody>
                 </table>
             </div>
@@ -61,4 +63,3 @@ export default function Roles({ datos }) {
         </div>
     )
 }
-

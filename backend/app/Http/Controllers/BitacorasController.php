@@ -72,7 +72,7 @@ class BitacorasController extends Controller
         $bitacoras->ip = $request->ip;
         $bitacoras->so = $request->so;
         $bitacoras->navegador = $request->navegador;
-        $bitacoras->usuario = $request->usario;
+        $bitacoras->usuario = $request->usuario;
         $bitacoras->save();
         return $bitacoras;
     }
