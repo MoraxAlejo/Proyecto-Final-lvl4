@@ -1,33 +1,62 @@
 import { useEffect, useState } from 'react';
-import { Link, } from "react-router-dom"
-import "../css/details.css"
-
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import '../css/details.css';
 
 export default function Usuarios({ datos }) {
-    const [dataUsuario, setDataUsuario] = useState([]);
+  const [dataUsuario, setDataUsuario] = useState([]);
+  
 
-    useEffect(() => {
-        if (datos && datos.length > 0) {
-            setDataUsuario(datos);
-        }
-    }, [datos]);
-    const [isMenuOpen, setIsMenuOpen] = useState(true);
-    const [isLinksOpen, setIsLinksOpen] = useState(false);
-    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+  useEffect(() => {
+    if (datos && datos.length > 0) {
+      setDataUsuario(datos);
+    }
+  }, [datos]);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isLinksOpen, setIsLinksOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-    const linksDrawer = () => {
-        setIsLinksOpen(!isLinksOpen);
-    };
+  const linksDrawer = () => {
+    setIsLinksOpen(!isLinksOpen);
+  };
 
-    const toggleDrawer = () => {
-        setIsDrawerOpen(!isDrawerOpen);
-    };
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
 
+  const endpoint = 'http://127.0.0.1:8000/api/';
+
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+    getAllUsuarios();
+  }, []);
+
+  const getAllUsuarios = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/usuarios`);
+      setUsuarios(response.data); // Actualiza el estado con los datos de la respuesta
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+    }
+  };
+
+  const deleteUsuario = async (idusuario) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/usuarios/${idusuario}`);
+      // Si la eliminación fue exitosa, actualiza la lista de usuarios
+      getAllUsuarios();
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+
+      
+    }
+  };
 
 
     return (
@@ -142,7 +171,7 @@ export default function Usuarios({ datos }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataUsuario.map((el) => (
+                        {usuarios.map((el) => (
 
 
                             <tr key={el.idusuario} className="bg-white border-b hover:bg-gray-50">
@@ -172,7 +201,7 @@ export default function Usuarios({ datos }) {
                                     </p>
                                     <p className='flex bg-red-600 p-1 gap-4 rounded-md'>
                                         {/* icons */}
-                                        <a href="#" className="font-medium text-white">Eliminar</a>
+                                        <button onClick={()=>deleteUsuario(el.idusuario)} className="font-medium text-white">Eliminar</button>
                                     </p>
                                 </td>
 
