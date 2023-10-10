@@ -7,14 +7,35 @@ import { useNavigate, useParams } from "react-router-dom";
 const endpoint = 'http://127.0.0.1:8000/api/enlaces/';
 
 
-export default function Enlaces({ datos }) {
+export default function Enlaces() {
+    
+
     const [dataEnlaces, setDataEnlaces] = useState([]);
 
     useEffect(() => {
-        if (datos && datos.length > 0) {
-            setDataEnlaces(datos);
+        getAllEnlaces();
+    }, []);
+
+    const getAllEnlaces = async () => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/api/enlaces`);
+            setDataEnlaces(response.data); // Actualiza el estado con los datos de la respuesta
+        } catch (error) {
+            console.error('Error al obtener usuarios:', error);
         }
-    }, [datos]);
+    };
+
+    const deleteEnlaces = async (idenlace) => {
+        try {
+            await axios.delete(`http://127.0.0.1:8000/api/enlaces/${idenlace}`);
+            // Si la eliminación fue exitosa, actualiza la lista de usuarios
+            getAllEnlaces();
+        } catch (error) {
+            console.error('Error al eliminar el usuario:', error);
+
+
+        }
+    };
 
 
     return (
@@ -64,9 +85,12 @@ export default function Enlaces({ datos }) {
                                     <Link to={`/edit enlace/${el.idenlace}`}>
                                         <p className='flex bg-green-600 p-1 gap-4 rounded-md'>
                                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2UPwrCMBSHM3oAQephXFysOOlFegmnzp7FY+gipGu8ghScPmlJaAnmjzFjPugSXn5f3muIEJkBKuAOtLmzR4ALE23ukzfAArhqwc0u2gNP4uiB7Sxc6vWzlgydVLYgNvwNHL+EGxpXm4aD56uBpa5fAQ8rvAPWqYI6OdwSuMZySg4PCPrZD/WGmzqvIHAIaYVLc1uADfD6V+Aci+7Uvf9HQWfPPLg/RuCjCIKUEWUZUexz7UP5BMNrqUhHAbtwrwUx8QEo8BbR2puCUwAAAABJRU5ErkJggg==" />
-                                            <a href="#" className="font-medium text-white">Edit</a>
+                                            <a href="#" className="font-medium text-white"></a>
                                         </p>
                                     </Link>
+                                    <p className='flex bg-red-600 p-1 gap-4 rounded-md'>
+                                        <button onClick={() => deleteEnlaces(el.idenlace)} className="font-medium text-white">Eliminar</button>
+                                    </p>
                                 </td>
                             </tr>
                         ))}
@@ -220,6 +244,28 @@ export const EditEnlace = () => {
 
 export const CreateEnlace = () => {
 
+    const [idpagina, setIdpagina] = useState('');
+    const [idrol, setIdrol] = useState(0);
+    const [descripcion, setDescripcion] = useState('');
+    const [fechacreacion, setFechacreacion] = useState('');
+    const [fechamodificacion, setFechamodificacion] = useState('');
+    const [usuariocreacion, setUsuariocreacion] = useState('');
+    const [usuariomodificacion, setUsuariomodificacion] = useState('');
+    const navigate = useNavigate();
+    const createEnlace = async (e) => {
+        e.preventDefault();
+
+        await axios.post(`http://127.0.0.1:8000/api/enlaces`, {
+            idpagina: idpagina,
+            idrol: idrol,
+            descripcion: descripcion,
+            fechacreacion: fechacreacion,
+            fechamodificacion: fechamodificacion,
+            usuariocreacion: usuariocreacion,
+            usuariomodificacion: usuariomodificacion
+        });
+        navigate("/enlaces")
+    }
 
     return (
         <div className="px-10 flex flex-col items-center gap-10 pb-10">
@@ -238,30 +284,55 @@ export const CreateEnlace = () => {
                     </Link>
                 </div>
                 <hr className="border border-gray-200 w-full" />
-                <form className="py-5 px-8">
+                <form onSubmit={createEnlace} className="py-5 px-8">
                     <div className="w-full flex justify-between">
                         <section className="flex flex-col justify-center ">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID pagina</label>
-                            <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"/>
+                            <input onChange={(e) => setIdpagina(e.target.value)} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
 
                         </section>
 
                         <section className="flex flex-col justify-center ">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID rol</label>
-                            <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"/>
+                            <input onChange={(e) => setIdrol(e.target.value)} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
 
                     </div>
 
                     <section className="flex flex-col justify-center">
                         <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Descripcion</label>
-                        <input type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        <input onChange={(e) => setDescripcion(e.target.value)} type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                     </section>
 
-                    <button className="mt-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">Create</button>
+                    <div className="w-full flex justify-between">
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Fecha creacion</label>
+                            <input onChange={(e) => setFechacreacion(e.target.value)} type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">fecha modificacion</label>
+                            <input onChange={(e) => setFechamodificacion(e.target.value)} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+                    </div>
+
+                    <div className="w-full flex justify-between">
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Usuario creacion</label>
+                            <input onChange={(e) => setUsuariocreacion(e.target.value)} type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+
+                        <section className="flex flex-col justify-center">
+                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Usuario modificacion</label>
+                            <input onChange={(e) => setUsuariomodificacion(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        </section>
+                    </div>
+
+                    <button type='submit' className="mt-5 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse active:animate-bounce">Create</button>
 
                 </form>
             </main>
         </div>
     )
 }
+

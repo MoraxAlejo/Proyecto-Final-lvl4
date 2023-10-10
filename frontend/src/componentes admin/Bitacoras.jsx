@@ -7,15 +7,34 @@ import { useNavigate, useParams } from "react-router-dom";
 const endpoint = 'http://127.0.0.1:8000/api/bitacoras/';
 
 
-export default function Bitacoras({ datos }) {
+export default function Bitacoras() {
+
     const [dataBitacoras, setDataBitacoras] = useState([]);
 
     useEffect(() => {
-        if (datos && datos.length > 0) {
-            setDataBitacoras(datos);
-        }
-    }, [datos]);
+        getAllBitacoras();
+    }, []);
 
+    const getAllBitacoras = async () => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/api/bitacoras`);
+            setDataBitacoras(response.data); // Actualiza el estado con los datos de la respuesta
+        } catch (error) {
+            console.error('Error al obtener usuarios:', error);
+        }
+    };
+
+    const deleteBitacoras = async (idbitacora) => {
+        try {
+            await axios.delete(`http://127.0.0.1:8000/api/bitacoras/${idbitacora}`);
+            // Si la eliminación fue exitosa, actualiza la lista de usuarios
+            getAllBitacoras();
+        } catch (error) {
+            console.error('Error al eliminar el usuario:', error);
+
+
+        }
+    };
 
 
     return (
@@ -93,9 +112,12 @@ export default function Bitacoras({ datos }) {
                                     <Link to={`/edit bitacoras/${el.idbitacora}`} >
                                         <p className='flex bg-green-600 p-1 gap-4 rounded-md'>
                                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2UPwrCMBSHM3oAQephXFysOOlFegmnzp7FY+gipGu8ghScPmlJaAnmjzFjPugSXn5f3muIEJkBKuAOtLmzR4ALE23ukzfAArhqwc0u2gNP4uiB7Sxc6vWzlgydVLYgNvwNHL+EGxpXm4aD56uBpa5fAQ8rvAPWqYI6OdwSuMZySg4PCPrZD/WGmzqvIHAIaYVLc1uADfD6V+Aci+7Uvf9HQWfPPLg/RuCjCIKUEWUZUexz7UP5BMNrqUhHAbtwrwUx8QEo8BbR2puCUwAAAABJRU5ErkJggg==" />
-                                            <a href="" className="font-medium text-white">Edit</a>
+                                            <a href="" className="font-medium text-white"></a>
                                         </p>
                                     </Link>
+                                    <p className='flex bg-red-600 p-1 gap-4 rounded-md'>
+                                        <button onClick={() => deleteBitacoras(el.idbitacora)} className="font-medium text-white">Eliminar</button>
+                                    </p>
                                 </td>
                             </tr>
                         ))}
@@ -103,7 +125,7 @@ export default function Bitacoras({ datos }) {
                 </table>
             </div>
 
-            <Link to={`/create`}>
+            <Link to={`/create bitacora`}>
                 <a className="rounded-lg relative w-36 h-10 cursor-pointer flex items-center border border-green-500 bg-green-500 group hover:bg-green-500 active:bg-green-500 active:border-green-500" href="">
                     <span className="text-white font-semibold ml-8 transform group-hover:translate-x-20 transition-all duration-300">Agregar</span>
                     <span className="absolute right-0 h-full w-10 rounded-lg bg-green-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300">
@@ -138,7 +160,7 @@ export const EditBitacora = () => {
 
         try {
             await axios.put(`http://127.0.0.1:8000/api/bitacoras/${idbitacora}`, {
-                
+
                 bitacora: bitacora,
                 idusuario: idusuario,
                 fecha: fecha,
@@ -147,7 +169,7 @@ export const EditBitacora = () => {
                 so: so,
                 navegador: navegador,
                 usuario: usuario
-                
+
             });
 
             setEditSuccess(true);
@@ -172,7 +194,7 @@ export const EditBitacora = () => {
             setIp(response.data.ip);
             setSo(response.data.so);
             setNavegador(response.data.navegador);
-            setFecha(response.data.fecha); 
+            setFecha(response.data.fecha);
 
         }
         getUsuarioById();
@@ -261,6 +283,30 @@ export const EditBitacora = () => {
 
 export const CreateUBitacora = () => {
 
+    const [usuario, setUsuario] = useState('');
+    const [bitacora, setBitacora] = useState('');
+    const [idusuario, setIdusuario] = useState(0);
+    const [hora, setHora] = useState('');
+    const [ip, setIp] = useState('');
+    const [so, setSo] = useState('');
+    const [navegador, setNavegador] = useState('');
+    const [fecha, setFecha] = useState('');
+    const navigate = useNavigate();
+    const createBitacora = async (e) => {
+        e.preventDefault();
+        await axios.post(`http://127.0.0.1:8000/api/bitacoras`, {
+            bitacora: bitacora,
+            idusuario: idusuario,
+            fecha: fecha,
+            hora: hora,
+            ip: ip,
+            so: so,
+            navegador: navegador,
+            usuario: usuario
+
+        });
+        navigate("/bitacoras");
+    }
 
     return (
         <div className="px-10 flex flex-col items-center gap-10 pb-10">
@@ -279,56 +325,52 @@ export const CreateUBitacora = () => {
                     </Link>
                 </div>
                 <hr className="border border-gray-200 w-full" />
-                <form className="py-5 px-8">
-                    <div className="w-full flex justify-between">
-                        <section className="flex flex-col justify-center ">
-                            <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID bitacora</label>
-                            <input type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
-                        </section>
-
+                <form onSubmit={createBitacora} className="py-5 px-8">
+                   
+                        
                         <section className="flex flex-col justify-center ">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">ID usuario</label>
-                            <input readOnly type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input onChange={(e) => setIdusuario(e.target.value)} type="number" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
-                    </div>
+                    
 
                     <section className="flex flex-col justify-center">
                         <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Bitacora</label>
-                        <input  type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        <input onChange={(e) => setBitacora(e.target.value)} type="text" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                     </section>
 
                     <div className="w-full flex justify-between">
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
-                            <input type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input onChange={(e) => setFecha(e.target.value)} type="date" placeholder="" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
 
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Hora</label>
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input onChange={(e) => setHora(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
                     </div>
 
                     <div className="w-full flex justify-between">
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">IP</label>
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input onChange={(e) => setIp(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
 
                         <section className="flex flex-col justify-center">
                             <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">SO</label>
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                            <input onChange={(e) => setSo(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                         </section>
                     </div>
 
                     <section className="flex flex-col justify-center">
                         <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Navegador</label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        <input onChange={(e) => setNavegador(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                     </section>
 
                     <section className="flex flex-col justify-center">
                         <label htmlFor="base-input" className="block mb-2 text-sm font-medium text-gray-900">Usuario</label>
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+                        <input onChange={(e) => setUsuario(e.target.value)} type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
                     </section>
 
                     <button className="bg-blue-500 hover:bg-blue-600 py-2 px-5 rounded-md text-white my-5" type="submit">Save</button>

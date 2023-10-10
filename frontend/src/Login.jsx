@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import * as Yup from 'yup';
 
+
 export default function Login() {
     const [usuario, setUsuario] = useState('');
     const [clave, setClave] = useState('');
@@ -18,48 +19,70 @@ export default function Login() {
         try {
             await schema.validate({ usuario, clave }, { abortEarly: false });
             setErrors({});
-
-            // Realizar una solicitud GET para obtener la lista de usuarios desde la API
+        
             const response = await axios.get('http://127.0.0.1:8000/api/usuarios');
-
+        
             if (response.status === 200) {
                 const usuarios = response.data;
-
-                // Verificar si los datos coinciden con algún usuario en la lista
+        
                 const usuarioEncontrado = usuarios.find(
                     (user) => user.usuario === usuario && user.clave === clave
                 );
-
+        
                 if (usuarioEncontrado) {
-                    // Verificar si el idrol es igual a 1
-                    if (usuarioEncontrado.idrol === 1) {
-                        // Redireccionar a la vista de /usuarios
-                        window.location.href = '/usuarios';
-                    } else {
-                        // Redireccionar a la vista de /dashboard
-                        window.location.href = '/dashboard';
-                    }
+                   
+        
+                // Verificar si el idrol es igual a 1
+                if (usuarioEncontrado.idrol === 1) {
+                    // Redireccionar a la vista de /usuarios
+                    window.location.href = '/usuarios';
                 } else {
-                    // Mostrar un mensaje de error si no se encontró un usuario coincidente
-                    alert('Usuario o clave incorrectos');
-                    setErrors({ login: 'Usuario o clave incorrectos' });
+                    // Redireccionar a la vista de /dashboard
+                    window.location.href = '/dashboard';
+
+                    // Intento fallido de traer los datos de login por medio de props 
+                    
+                    // const datosUsuario = {
+                       // id: usuarioEncontrado.idusuario,
+                       // idpersona: usuarioEncontrado.idpersona,
+                       // usuario: usuarioEncontrado.usuario,
+                       // clave: usuarioEncontrado.clave,
+                       // habilitado: usuarioEncontrado.habilitado,
+                       // fecha: usuarioEncontrado.fecha,
+                       // idrol: usuarioEncontrado.idrol,
+                       // fechacreacion: usuarioEncontrado.fechacreacion,
+                       // fechamodificacion: usuarioEncontrado.fechamodificacion,
+                       // usuariocreacion: usuarioEncontrado.usuariocreacion,
+                       // usuariomodificacion: usuarioEncontrado.usuarioEncontrado
+                   // };
+                    
+                   // return (
+                      //  <div className='hidden'>
+                        //    <Dashboard datos={datosUsuario} />
+                       // </div>
+                  //  );
                 }
+            } else {
+                // Mostrar un mensaje de error si la respuesta no es 200
+                alert('Error al obtener la lista de usuarios');
             }
+        }
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errorMessages = {};
-
+        
                 err.inner.forEach((error) => {
                     errorMessages[error.path] = error.message;
                 });
-
+        
                 setErrors(errorMessages);
             } else {
                 // Manejar otros tipos de errores, como errores de red, etc.
                 console.log(err);
             }
         }
-    };
+    }
+    
 
 
     return (
@@ -127,6 +150,9 @@ export default function Login() {
                 <p className="text-[#828282] text-sm ">created by Jarvinc3</p>
                 <p className="text-[#828282] text-sm ">devCchallenges.io</p>
             </header>
+
+      
+
         </div>
     );
 }

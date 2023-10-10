@@ -62,7 +62,6 @@ class RolesController extends Controller
     public function update($id , Request $request)
     {
         $roles= Roles::find($id);
-        $roles = new Roles();
         $roles->rol = $request->rol;
         $roles->fechacreacion = $request->fechacreacion;
         $roles->fechamodificacion = $request->fechamodificacion;
