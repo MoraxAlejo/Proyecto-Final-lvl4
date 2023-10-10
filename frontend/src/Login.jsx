@@ -146,10 +146,7 @@ export default function Login() {
                 </section>
             </main>
 
-            <header className="flex justify-between w-[450px] my-5">
-                <p className="text-[#828282] text-sm ">created by Jarvinc3</p>
-                <p className="text-[#828282] text-sm ">devCchallenges.io</p>
-            </header>
+           
 
       
 

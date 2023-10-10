@@ -15,7 +15,7 @@ export default function Edit() {
                 <div className="w-full flex justify-between">
                     <img className=" w-36 h-8" src="/iconoLogo.jpg" alt="devchallenges" />
                     <div className="flex items-center justify-between gap-4">
-                        <img className='w-8 h-8 rounded-3xl' src='/zoro.jpg' alt='perfil' />
+                        <img className='w-8 h-8 rounded-3xl' src='/kafka.jpeg' alt='perfil' />
                         <h2 className="font-sans">Nombre usuario</h2>
                         <button className="">
                             <span onClick={toggleDrawer} className="material-symbols-outlined">arrow_drop_down</span>
@@ -51,10 +51,10 @@ export default function Edit() {
                 </div>
                 <Link to={"/dashboard"}>
                     <button className="flex items-center cursor-pointer duration-200 hover:scale-125 active:scale-100 mr-[700px] mt-16">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" className="stroke-blue-300">
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="50px" height="50px" viewBox="0 0 24 24" className="stroke-red-300">
                             <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="1.5" d="M11 6L5 12M5 12L11 18M5 12H19"></path>
                         </svg>
-                        Back
+                        
                     </button>
                 </Link>
             </nav>
@@ -73,7 +73,7 @@ export default function Edit() {
                             <label htmlFor='img' className="w-[70px] h-[70px] border-none absolute pl-6 pt-6 bg-[#00000057] rounded-lg ">
                                 <span className='material-symbols-outlined text-white'>photo_camera</span>
                             </label>
-                            <img className='w-[70px] h-[70px] rounded-lg' src='zoro.jpg' alt='perfil' />
+                            <img className='w-[70px] h-[70px] rounded-lg' src='kafka.jpeg' alt='perfil' />
                             <p className="text-[#828282] text-sm">CHANGE PHOTO</p>
                         </div>
                     </section>
@@ -106,10 +106,7 @@ export default function Edit() {
                 </form>
             </main>
 
-            <header className="flex justify-between w-[800px] my-5">
-                <p className="text-[#828282] text-sm ">created by Jarvinc3</p>
-                <p className="text-[#828282] text-sm ">devCchallenges.io</p>
-            </header>
+            
         </div>
     )
 }

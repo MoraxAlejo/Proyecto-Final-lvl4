@@ -3,7 +3,7 @@ import { useState } from 'react';
 import "../css/details.css"
 
 export default function Dashboard() {
-  
+
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
@@ -18,8 +18,8 @@ export default function Dashboard() {
         <div className="w-full flex justify-between">
           <img className=" w-36 h-8" src="/iconoLogo.jpg" alt="devchallenges" />
           <div className="flex items-center justify-between gap-4">
-            <img className='w-8 h-8 rounded-3xl' src='/zoro.jpg' alt='perfil' />
-            <h2 className="">Nombre usuario</h2>
+            <img className='w-8 h-8 rounded-3xl' src='/kafka.jpeg' alt='perfil' />
+            <h2 className="">KafkaAlejo</h2>
             <button className="">
               <span onClick={toggleDrawer} className="material-symbols-outlined">arrow_drop_down</span>
             </button>
@@ -65,7 +65,8 @@ export default function Dashboard() {
             <p className="text-gray-400 text-sm font-medium">Some info may be visible to other people</p>
           </div>
           <Link to={"/dashboard edit"}>
-            <button className=" h-10 border border-gray-200 relative py-2 px-8 text-black text-base font-bold uppercase rounded-[50px] overflow-hidden bg-white transition-all duration-400 ease-in-out shadow-md hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-blue-500 before:to-blue-300 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-[50px] hover:before:left-0">Edit</button>
+            <button className="learn-more"> Edit
+            </button>
           </Link>
         </section>
 
@@ -76,7 +77,7 @@ export default function Dashboard() {
             <p className="text-gray-400">PHOTO</p>
           </div>
           <div className="div-2">
-            <img className=' w-16 h-16 rounded-lg' src='/zoro.jpg' alt='foto de perfil' />
+            <img className=' w-16 h-16 rounded-lg' src='/kafka.jpeg' alt='' />
           </div>
         </section>
 
@@ -87,7 +88,7 @@ export default function Dashboard() {
             <p className="text-gray-400">NAME</p>
           </div>
           <div className="div-2">
-            <p className=" text-lg font-medium py-2 text-black">nombre</p>
+            <p className=" text-lg font-medium py-2 text-black">KafkaAlejo</p>
           </div>
         </section>
 
@@ -98,7 +99,7 @@ export default function Dashboard() {
             <p className="text-gray-400">BIO</p>
           </div>
           <div className="div-2">
-            <p className=" text-lg font-medium py-2 text-black">Lorem, ipsum dolor sit amet consectetur</p>
+            <p className=" text-lg font-medium py-2 text-black">FullStack Web Developer</p>
           </div>
         </section>
 
@@ -109,7 +110,7 @@ export default function Dashboard() {
             <p className="text-gray-400">PHONE</p>
           </div>
           <div className="div-2">
-            <p className=" text-lg font-medium py-2 text-black">487487648764</p>
+            <p className=" text-lg font-medium py-2 text-black">+57 3044696352</p>
           </div>
         </section>
 
@@ -120,7 +121,7 @@ export default function Dashboard() {
             <p className="text-gray-400">EMAIL</p>
           </div>
           <div className="div-2">
-            <p className=" text-lg font-medium py-2 text-black">fulano@gmail</p>
+            <p className=" text-lg font-medium py-2 text-black">alejodeviluke@gmail</p>
           </div>
         </section>
 
@@ -131,16 +132,11 @@ export default function Dashboard() {
             <p className="text-gray-400">PASSWORD</p>
           </div>
           <div className="div-2">
-            <p className=" text-lg font-medium py-2 text-black">************</p>
+            <p className=" text-lg font-medium py-2 text-black">****</p>
           </div>
         </section>
 
       </main>
-
-      <header className="flex justify-between w-[800px] my-5">
-        <p className="text-[#828282] text-sm ">created by Jarvinc3</p>
-        <p className="text-[#828282] text-sm ">devCchallenges.io</p>
-      </header>
     </div>
   )
 }

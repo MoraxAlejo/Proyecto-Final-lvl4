@@ -34,11 +34,11 @@ export default function Parametros() {
                             <rect y="60" width="80" height="15" fill="#f0f0f0" rx="10"></rect>
                         </svg>
                     </span>
-                    <span className="text">MENU</span>
+                    <span className="text"></span>
                 </button>
                 <div className="flex items-center justify-between gap-4">
-                    <img className='w-8 h-8 rounded-3xl' src='/zoro.jpg' alt='perfil' />
-                    <h2 className="">Nombre Admin</h2>
+                    <img className='w-8 h-8 rounded-3xl' src='/kafka.jpeg' alt='perfil' />
+                    <h2 className="">Admin</h2>
                     <button onClick={toggleDrawer} className="text-white font-bold transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 hover:animate-pulse">
                         <img width="50" height="50" src="https://img.icons8.com/ios-filled/50/down-squared--v2.png" alt="down-squared--v2" />
                     </button>
@@ -73,7 +73,7 @@ export default function Parametros() {
 
                 <div className={`${isLinksOpen ? 'hidden' : ''} p-4 overflow-y-auto`}>
                     <ul className="font-medium flex flex-col gap-4">
-                        <Link to={"/parametros"} onClick={toggleMenu}>
+                        <Link to={""} onClick={toggleMenu}>
                             <li className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <img width={30} src="data:image/png;base64,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" />
                                 <span className="flex-1 ml-3 whitespace-nowrap">Parametros</span>
