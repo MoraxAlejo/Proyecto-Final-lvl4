@@ -37,7 +37,6 @@ export default function Login() {
                     // Redireccionar a la vista de /usuarios
                     window.location.href = '/usuarios';
                 } else {
-                    // Redireccionar a la vista de /dashboard
                     window.location.href = '/dashboard';
 
                     // Intento fallido de traer los datos de login por medio de props 
@@ -63,8 +62,7 @@ export default function Login() {
                   //  );
                 }
             } else {
-                // Mostrar un mensaje de error si la respuesta no es 200
-                alert('Error al obtener la lista de usuarios');
+                alert('Lo Sentimos El Usuario no existe');
             }
         }
         } catch (err) {
@@ -77,7 +75,7 @@ export default function Login() {
         
                 setErrors(errorMessages);
             } else {
-                // Manejar otros tipos de errores, como errores de red, etc.
+               
                 console.log(err);
             }
         }

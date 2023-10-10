@@ -18,7 +18,7 @@ export default function Bitacoras() {
     const getAllBitacoras = async () => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/api/bitacoras`);
-            setDataBitacoras(response.data); // Actualiza el estado con los datos de la respuesta
+            setDataBitacoras(response.data); 
         } catch (error) {
             console.error('Error al obtener usuarios:', error);
         }
@@ -27,7 +27,7 @@ export default function Bitacoras() {
     const deleteBitacoras = async (idbitacora) => {
         try {
             await axios.delete(`http://127.0.0.1:8000/api/bitacoras/${idbitacora}`);
-            // Si la eliminación fue exitosa, actualiza la lista de usuarios
+           
             getAllBitacoras();
         } catch (error) {
             console.error('Error al eliminar el usuario:', error);

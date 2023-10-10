@@ -13,6 +13,6 @@ class PaginasSeeder extends Seeder
      */
     public function run(): void
     {
-        Paginas::factory()->count(10)->create(); 
+        Paginas::factory()->count(50)->create(); 
     }
 }
