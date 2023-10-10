@@ -1,5 +1,5 @@
 # Proyecto-Final-lvl4
-
+# Factores a tener en cuenta
 1ero : los seeders deben ejecutarse individualmente. (Por alguna razon el comando php artisan db:seed no lee los seeders) pero cuando se ejecuta el php artisan db:seed --class
 (nombre del seeder) si lo ejecuta. Los seeder a ejecutarse son "Personas" "Paginas" "Roles" (Personas crea 50 personas, Paginas tambien y Roles crea los roles 1 y 2 que son admin y usuario ) 
 
